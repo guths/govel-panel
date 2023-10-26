@@ -39,9 +39,9 @@ type Logger struct {
 }
 
 func New(env string, out io.Writer, minLevel Level) *Logger {
-	if env == "development" {
-		out, _ = createLocalLog()
-	}
+	// if env == "development" {
+	// 	out, _ = createLocalLog()
+	// }
 
 	return &Logger{
 		minLevel: minLevel,

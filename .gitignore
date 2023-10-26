@@ -1,0 +1,6 @@
+.env*
+.envrc
+bin/
+.vscode
+logs/*.envrc
+

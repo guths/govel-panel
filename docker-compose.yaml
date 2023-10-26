@@ -1,0 +1,28 @@
+services:
+  govel-app:
+    container_name: govel-app
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on: 
+     - govel-panel-db
+    networks:
+      - govel-panel-network
+  govel-panel-db:
+    container_name: govel-panel-db
+    image: postgres
+    restart: always
+    networks:
+      - govel-panel-network
+    volumes:
+      - greenlight-volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: greenlight
+networks:
+  govel-panel-network:
+    driver: bridge
+volumes:
+  greenlight-volume:
