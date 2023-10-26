@@ -10,7 +10,9 @@ services:
       - govel-panel-network
   govel-panel-db:
     container_name: govel-panel-db
-    image: postgres
+    build:
+      context: .
+      dockerfile: Dockerfile.database
     restart: always
     networks:
       - govel-panel-network
@@ -21,6 +23,7 @@ services:
     environment:
       POSTGRES_PASSWORD: example
       POSTGRES_DB: greenlight
+      POSTGRES_USER: postgres
 networks:
   govel-panel-network:
     driver: bridge
