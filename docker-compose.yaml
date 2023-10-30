@@ -1,4 +1,27 @@
 services:
+  govel-panel-db-test:
+    container_name: govel-panel-db-test
+    build:
+      context: .
+      dockerfile: Dockerfile.database
+    restart: always
+    networks:
+      - govel-panel-network
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: postgres
+  test:
+    container_name: govel-test
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    depends_on:
+      - govel-panel-db-test
+    networks:
+      - govel-panel-network
+    command: go test -v ./tests/...
   govel-app:
     container_name: govel-app
     build: .
@@ -22,7 +45,6 @@ services:
       - 5432:5432
     environment:
       POSTGRES_PASSWORD: example
-      POSTGRES_DB: greenlight
       POSTGRES_USER: postgres
 networks:
   govel-panel-network:

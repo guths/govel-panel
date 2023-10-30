@@ -39,25 +39,11 @@ type Logger struct {
 }
 
 func New(env string, out io.Writer, minLevel Level) *Logger {
-	// if env == "development" {
-	// 	out, _ = createLocalLog()
-	// }
-
 	return &Logger{
 		minLevel: minLevel,
 		out:      out,
 		env:      env,
 	}
-}
-
-func createLocalLog() (*os.File, error) {
-	f, err := os.Create("logs/logs.txt")
-
-	if err != nil {
-		return nil, err
-	}
-
-	return f, nil
 }
 
 func (l *Logger) PrintInfo(message string, properties map[string]string) {
